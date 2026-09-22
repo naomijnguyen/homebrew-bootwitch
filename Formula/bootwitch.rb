@@ -1,9 +1,9 @@
 class Bootwitch < Formula
   desc "Portable project scaffolder for macOS and Linux"
   homepage "https://github.com/naomijnguyen/Bootwitch-CLI"
-  url "https://github.com/naomijnguyen/Bootwitch-CLI/archive/refs/tags/v0.3.0.tar.gz"
-  sha256 "4b14c7cad72afa3bb39f483c1c0e37b3cfd6a87d1234ef943990507a0893cf26"
-  version "0.3.0"
+  url "https://github.com/naomijnguyen/Bootwitch-CLI/archive/refs/tags/v0.4.0.tar.gz"
+  sha256 "ab6bb61cf08b33318e4ffdbcdbd34a12d2ed291beb3fcee46baf5480b79c5342"
+  version "0.4.0"
   license "MIT"
 
   depends_on "python@3.14"
@@ -20,6 +20,9 @@ class Bootwitch < Formula
   end
 
   test do
-    assert_match "Usage:", shell_output("#{bin}/bootwitch help")
+    assert_match "Templates:", shell_output("#{bin}/bootwitch templates")
+    system bin/"bootwitch", "init", "brew-smoke", "--template", "base",
+           "--root", testpath.to_s, "--no-git"
+    assert_path_exists testpath/"brew-smoke/.bootwitch/project.conf"
   end
 end
